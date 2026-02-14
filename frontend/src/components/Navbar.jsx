@@ -2,11 +2,20 @@ import React, { useState, useEffect } from "react";
 import Login from "./Login";
 
 function Navbar() {
-  const [theme, setTheme] = useState("light");
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState("light");
 
+  // Load theme from localStorage on first render
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, []);
+
+  // Update theme + localStorage
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import rupee from "../../public/rupee-sign.svg"
 
-function Card({book}) {
+function Card({book, product}) {
   return (
     <>
       <div>
@@ -28,7 +28,12 @@ function Card({book}) {
               </div>
 
               <button className="border-1 bg-emerald-300 w-21 rounded-md">
-                {book.status}
+                {/* {(product === "book" && book.price === 0) ? "Read Now" : "Buy Now"} */}
+                {product === "book"
+                  ? book.price === 0
+                    ? "Read Now"
+                    : "Buy Now"
+                  : "Enroll Now"}
               </button>
             </div>
           </div>
