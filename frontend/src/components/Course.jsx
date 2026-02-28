@@ -1,11 +1,33 @@
 import React from "react";
 import courselist from "../../public/course_list.json"
 import Card from "./Card"
+import { useEffect, useState } from "react";
+import axios from "axios";
 function Course() {
-    const list = courselist;
+    // const list = courselist;
+    const [course, setCourse] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() =>{
+        axios
+        .get("http://localhost:3001/api/courses/")
+        .then((res)=>{
+          setCourse(res.data);
+          setLoading(false);
+        })
+        .catch((err)=>{
+          console.log("Error: ", err);
+          setLoading(false);
+        })
+    })
+
+    if(loading){
+      return <div className="text-center mt-10">Loading...</div>
+    }
+
   return (
     <>
-      <div className="px-5">
+      <div className="px-5 -z-10">
         <div className=" flex px-10 flex-col items-center justify-center mb-10">
           <h1 className="text-3xl font-bold">Skills to transform your career and life</h1>
           <p className=" text-gray-600">
@@ -17,8 +39,8 @@ function Course() {
         
 
         <div className="grid grid-cols-1 md:grid-cols-4 md:mb-5">
-          {list.map((book) => (
-            <Card key={book.id} book={book} />
+          {course.map((book) => (
+            <Card key={book._id} book={book} product="course" />
           ))}
         </div>
       </div>

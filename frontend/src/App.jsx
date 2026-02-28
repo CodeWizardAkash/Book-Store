@@ -6,8 +6,8 @@ import Courses from './courses/Courses'
 import Signup from './components/Signup'
 import Contact from './components/Contact';
 import About from './components/About';
-import Books from './components/Books'
-import AllBooks from './components/books/AllBooks';
+import AllBooks from './books/AllBooks';
+
 // import Login from './components/Login'
 function App(){
   return (

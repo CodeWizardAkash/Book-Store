@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "../navbar";
-import Books from "../Books";
-import Footer from "../Footer";
+import Navbar from "../components/navbar";
+import Books from "../components/Books";
+import Footer from "../components/Footer"
 
 function AllBooks(){
     return(

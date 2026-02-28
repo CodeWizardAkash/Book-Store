@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bookRoute from "./route/book.route.js";
+import courseRoute from "./route/course.route.js";
 
 dotenv.config();
 
@@ -20,7 +21,8 @@ mongoose
     .catch((err) => console.log("MongoDB error ❌", err));
 
 // routes
-app.use("/api/books", bookRoute);    
+app.use("/api/books", bookRoute);
+app.use("/api/courses", courseRoute);    
 //test route
 app.get("/", (req, res)=>{
     res.send("Hello World");

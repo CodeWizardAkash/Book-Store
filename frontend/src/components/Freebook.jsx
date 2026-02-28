@@ -1,5 +1,5 @@
 import React from "react";
-import list from "../../public/list.json";
+// import list from "../../public/list.json";
 import rupee from "../../public/rupee-sign.svg"
 import Card from "./Card"
 import { useEffect, useState } from "react";

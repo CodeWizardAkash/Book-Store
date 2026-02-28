@@ -4,7 +4,7 @@ import rupee from "../../public/rupee-sign.svg"
 function Card({book, product}) {
   return (
     <>
-      <div>
+      <div className="">
         <div className="md:w-88.5  rounded-md mb-5 border-gray-600 shadow-md flex flex-col flex-shrink-0  justify-center items-center hover:scale-103 duration-200">
           <div className="">
             <img
