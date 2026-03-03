@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bookRoute from "./route/book.route.js";
 import courseRoute from "./route/course.route.js";
+import authRoute from "./route/auth.route.js";
 
 dotenv.config();
 
@@ -22,7 +23,8 @@ mongoose
 
 // routes
 app.use("/api/books", bookRoute);
-app.use("/api/courses", courseRoute);    
+app.use("/api/courses", courseRoute); 
+app.use("/api/auth", authRoute); 
 //test route
 app.get("/", (req, res)=>{
     res.send("Hello World");

@@ -1,28 +1,60 @@
-import React from "react";
+import React, {useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {AuthContext} from '../context/AuthContext'
 
 function Login({ open, setOpen }) {
+  const {login} = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassowrd] = useState("");
+
   if (!open) return null;
+
+  const handleLogin = async(e) =>{
+    e.preventDefault();
+
+    try{
+      const res = await axios.post(
+        "http://localhost:3001/api/auth/login",
+        {email, password}
+      );
+      
+      login(res.data.token); // Update global auth
+
+      alert("Login successful");
+      setOpen(false);
+      navigate("/");// no reload
+
+      window.location.href = "/"; // navigate to home page
+    }catch(err){
+      alart(err.response?.data?.message || "Login failed");
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div className="bg-base-100 w-96 p-6 rounded-lg shadow-lg relative bg-white">
         
         {/* Close Button */}
-        <button onClick={() => setOpen(false)} className="absolute top-3 right-3 text-xl cursor-pointer">✕</button>
+        <button onClick={() => setOpen(false)} className="absolute top-3 right-3 text-xl cursor-pointer"><a href="/">✕</a></button>
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
 
         <form className="flex flex-col  items-center gap-4">
           <input className="input input-bordered w-full outline-none border-1 p-1 rounded-md border-gray-400" type="email" placeholder="Email"/>
           <input className="input input-bordered w-full outline-none border-1 p-1 rounded-md border-gray-400" type="password" placeholder="Password"/>
 
-          <button className="btn btn-primary w-1/3 h-9 rounded-md text-white font-semibold cursor-pointer bg-emerald-600">Login</button>
+          <button className="btn btn-primary w-1/3 h-9 rounded-md text-white font-semibold cursor-pointer bg-emerald-600" type="submit">Login</button>
         </form>
 
         <p className="text-sm text-center mt-4">
-          Don’t have an account? <a className="text-primary cursor-pointer text-blue-500 ml-1" href="/signup">Sign up</a>
-          {/* <span herf="/signup" className="text-primary cursor-pointer text-blue-500 ml-1">
-            Sign up
-          </span> */}
+          Don’t have an account? 
+          <span className="text-primary cursor-pointer text-blue-500 ml-1" href="/signup"
+          onClick={()=>{
+            setOpen(false);
+            navigate("/signup")
+          }}>Sign up</span>
         </p>
       </div>
     </div>

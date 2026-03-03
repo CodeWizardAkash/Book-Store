@@ -9,21 +9,29 @@ function Course() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() =>{
-        axios
-        .get("http://localhost:3001/api/courses/")
-        .then((res)=>{
-          setCourse(res.data);
-          setLoading(false);
-        })
-        .catch((err)=>{
-          console.log("Error: ", err);
-          setLoading(false);
-        })
-    })
+      const fatchCourses = async() =>{
+        try{
+          const token = localStorage.getItem("token");
+          const res = await axios.get("http://localhost:3001/api/courses/", {
+            headers:{
+              Authorization: `Bearer ${token}`
+            },
+          }
+        );
+        setCourse(res.data);
+        }
+        catch(err){
+          console.log("Access denied");
+        }        
+      };
+      
+      fatchCourses();
+    }, []);
 
-    if(loading){
-      return <div className="text-center mt-10">Loading...</div>
-    }
+
+    // if(loading){
+    //   return <div className="text-center mt-10">Loading...</div>
+    // }
 
   return (
     <>

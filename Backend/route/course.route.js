@@ -1,5 +1,6 @@
 import express from "express";
 import Course from "../models/course.model.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.post("/", async(req, res)=>{
 })
 
 // get all courses
-router.get("/", async(req, res)=>{
+router.get("/", authMiddleware, async(req, res)=>{
     try {
         const courses = await Course.find();
         res.status(200).json(courses);
