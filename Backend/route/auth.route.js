@@ -11,15 +11,33 @@ const router = express.Router();
 // register new user
 router.post("/register", async(req, res)=>{
     try{
-        const newUser = new User(req.body);
-        const existingUser = await User.findOne({ email: newUser.email});
-        if(existingUser){
-            return res.status(400).json({message: "User already exists"});
+        // const newUser = new User(req.body);
+        const {name, email, password} = req.body;
+
+        if(!name || !email || !password){
+            return res.status(400).json({message: "All fields required"});
         }
-        const hassedPassword = await bcrypt.hash(newUser.password, 10);
-        newUser.password = hassedPassword;
-        const savedUser = await newUser.save();
-        res.status(201).json({message: "user registered successfully"});
+
+        const existingUser = await User.findOne({email: email.toLowerCase()});
+        if(existingUser){
+            return res.status(400).json({message: "Email already registered"});
+        }
+        const hassedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new User({
+            name,
+            email,
+            password: hassedPassword
+        })       
+        
+        await newUser.save();
+
+        const token = jwt.sign(
+            {id:newUser._id},
+            process.env.JWT_SECRET,
+            {expiresIn: "1d"}
+        )
+        res.status(201).json({token, message: "user registered successfully"});
     }
     catch(err){
         res.status(400).json({message: err.message});

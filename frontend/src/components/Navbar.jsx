@@ -3,6 +3,7 @@ import { Link} from "react-router-dom";
 import Login from "./Login";
 import { AuthContext } from "../context/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import NavLogo from "../../public/navLogo.png"
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -10,7 +11,7 @@ function Navbar() {
   const [openLogin, setOpenLogin] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isAuthenticated, logOut } = useContext(AuthContext);
 
   // Load saved theme
   useEffect(() => {
@@ -39,13 +40,19 @@ useEffect(() => {
   }
 }, [location, navigate]);
 
+const handleLogout = ()=>{
+  logOut();
+  navigate("/", {replace:true});
+}
+
   return (
     <>
       <nav className="w-full shadow-md fixed top-0 left-0 right-0 bg-white">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
 
-          <div className="text-2xl font-bold">
-            <Link to="/">BookStore</Link>
+          <div className="text-2xl font-bold flex gap-1">
+            <img className="w-12" src={NavLogo} alt="" />
+            <Link to="/" className="text-orange-400">Book<span className="text-emerald-600">Store</span></Link>
           </div>
 
           {/* Desktop Menu */}
@@ -64,15 +71,15 @@ useEffect(() => {
 
             {!isAuthenticated ? (
               <button
-                className="btn btn-primary btn-sm cursor-pointer"
+                className="btn btn-primary btn-sm cursor-pointer w-15 h-8 rounded-md hover:bg-emerald-600 hover:text-white font-semibold"
                 onClick={() => setOpenLogin(true)}
               >
                 Login
               </button>
             ) : (
               <button
-                className="btn btn-outline btn-sm"
-                onClick={logout}
+                className="btn btn-outline btn-sm cursor-pointer w-18 h-8 rounded-md hover:bg-red-700 hover:text-white font-semibold"
+                onClick={handleLogout}
               >
                 Logout
               </button>
@@ -105,15 +112,15 @@ useEffect(() => {
 
               {!isAuthenticated ? (
                 <button
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-primary btn-sm cursor-pointer w-15 h-8 rounded-md hover:bg-emerald-600 hover:text-white"
                   onClick={() => setOpenLogin(true)}
                 >
                   Login
                 </button>
               ) : (
                 <button
-                  className="btn btn-outline btn-sm"
-                  onClick={logout}
+                  className="btn btn-outline btn-sm cursor-pointer w-18 h-8 rounded-md hover:bg-red-600 hover:text-white"
+                  onClick={handleLogout}
                 >
                   Logout
                 </button>
@@ -133,3 +140,4 @@ useEffect(() => {
 }
 
 export default Navbar;
+
