@@ -1,7 +1,28 @@
-import React from "react";
+import React, {useState} from "react";
 import Navbar from "./Navbar";
+import axios from "axios";
 
 function Contact() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const ContactHandler= async (e)=>{
+    e.preventDefault();
+    setError("");
+    try{
+      const res = await axios.post(
+        "http://localhost:3001/api/contact/",
+
+        {name, email, message}
+      )
+      alert("message send sucessfully");
+    }
+    catch(err){
+      setError(err.response?.data?.message || "failed to sent message");
+    }
+  }
+
   return (
     <>
     <Navbar/>
@@ -36,24 +57,34 @@ function Contact() {
 
           {/* Contact Form */}
           <div className="bg-base-100 p-6 rounded-lg shadow-md">
-            <form className="space-y-4 flex flex-col items-center">
+            {error && (
+              <p className="text-red-500 text-sm text-center mb-4" >{error}</p>
+            )}
+            <form onSubmit={ContactHandler} className="space-y-4 flex flex-col items-center">
               <input
                 type="text"
                 placeholder="Your Name"
                 className="input input-bordered w-full outline-none border border-gray-200 rounded-md py-1 px-3"
+                value={name}
+                onChange={(e)=> setName(e.target.value)}
               />
               <input
                 type="email"
                 placeholder="Your Email"
                 className="input input-bordered w-full outline-none border border-gray-200 rounded-md py-1 px-3"
+                value={email}
+                onChange={(e)=> setEmail(e.target.value)}
               />
+              
               <textarea
                 placeholder="Your Message"
                 className="textarea textarea-bordered w-full outline-none border border-gray-200 rounded-md py-1 px-3"
                 rows="4"
+                value={message}
+                onChange={(e)=> setMessage(e.target.value)}
               ></textarea>
 
-              <button className="btn btn-primary w-1/3 text-white font-semibold p-1 rounded-md cursor-pointer bg-emerald-500">
+              <button type="submit" className="btn btn-primary w-1/3 text-white font-semibold p-1 rounded-md cursor-pointer bg-emerald-500">
                 Send Message
               </button>
             </form>
