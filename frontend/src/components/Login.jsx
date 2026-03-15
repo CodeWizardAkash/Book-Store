@@ -1,6 +1,6 @@
 import React, {useState, useContext } from "react";
 import axios from "axios";
-import { useNavigate, useLocation, replace } from "react-router-dom";
+import { useNavigate, useLocation} from "react-router-dom";
 import {AuthContext} from '../context/AuthContext'
 
 function Login({ open, setOpen }) {
@@ -27,6 +27,8 @@ function Login({ open, setOpen }) {
       );
       
       login(res.data.token); // Update global auth
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
       alert("Login successful");
       setOpen(false);
@@ -43,7 +45,7 @@ function Login({ open, setOpen }) {
       <div className="bg-base-100 w-96 p-6 rounded-lg shadow-lg relative bg-white">
         
         {/* Close Button */}
-        <button onClick={() => setOpen(false)} className="absolute top-3 right-3 text-xl cursor-pointer"><a href="/">✕</a></button>
+        <button onClick={() => setOpen(false)} className="absolute top-3 right-3 text-xl cursor-pointer">✕</button>
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
         <div className="flex justify-center">
           {error && <p className="text-red-600 text-sm mb-3">{error} try again.</p>}

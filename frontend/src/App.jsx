@@ -7,6 +7,19 @@ import Contact from './components/Contact';
 import About from './components/About';
 import AllBooks from './books/AllBooks';
 import ProtectedRoute from './ProtectedRoute';
+
+import AdminDashboard from './profile/admin/AdminDashboard';
+import AddBook from './profile/admin/AddBook';
+import EditBook from './profile/admin/EditBook';
+import AdminMessages from './profile/admin/AdminMessages';
+
+// import Profilein from '../pages/profile/ProfileLayout';
+import MyBooks from './profile/user/MyBooks';
+import Wishlist from './profile/user/Wishlist'
+import ProfileLayout from './profile/ProfileLayout'
+import ProfileInfo from './profile/user/ProfileInfo';
+import Cart from './profile/user/Cart';
+
 function App(){
   
   return (
@@ -18,6 +31,25 @@ function App(){
         <Route path='/contact' element={<ProtectedRoute><Contact/></ProtectedRoute>}/>
         <Route path='/about' element={<ProtectedRoute><About/></ProtectedRoute>}/>
         <Route path='/books' element={<ProtectedRoute><AllBooks/></ProtectedRoute>}/>
+        
+        {/* Shared Profile Layout */}
+        <Route path="/profile" element={<ProfileLayout />}>
+          {/* Default profile page */}
+          <Route index element={<ProfileInfo />} />
+
+          {/* User routes */}
+          <Route path="cart" element={<Cart />} />
+          <Route path="wishlist" element={<Wishlist />} />
+          <Route path="my-books" element={<MyBooks />} />
+
+          {/* Admin routes */}
+          {/* <Route path="admin-info" element={<AdminProfile />} /> */}
+          <Route path="messages" element={<AdminMessages />} />
+          <Route path="admin-dashboard" element={<AdminDashboard />} />
+          <Route path="add-book" element={<AddBook />} />
+          <Route path="edit-book/:id" element={<EditBook />} />
+        </Route>
+      
       </Routes>
     </>
   );

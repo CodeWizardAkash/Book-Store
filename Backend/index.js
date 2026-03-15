@@ -6,6 +6,7 @@ import bookRoute from "./route/book.route.js";
 import courseRoute from "./route/course.route.js";
 import authRoute from "./route/auth.route.js";
 import ContactRoute from "./route/contact.route.js";
+import { createAdmin } from "./utils/createAdmin.js";
 
 dotenv.config();
 
@@ -19,8 +20,14 @@ app.use(express.json());
 //mognoDB connection
 mongoose
     .connect(process.env.Mongodb_url)
-    .then(() => console.log("MongoDB connected ✅"))
+    .then(async () =>{
+        console.log("MongoDB connected ✅");
+
+        await createAdmin();
+    })
     .catch((err) => console.log("MongoDB error ❌", err));
+
+// admin creation   
 
 // routes
 app.use("/api/books", bookRoute);

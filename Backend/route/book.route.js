@@ -1,40 +1,24 @@
 import express from "express";
-import Book from "../models/book.model.js";
-import { get } from "mongoose";
+import verifyToken from "../middleware/authMiddleware.js";
+import {isAdmin} from "../middleware/adminMiddleware.js";
+import {
+  getBooks,
+  getFreeBooks,
+  getBooksById,
+  addBook,
+  updateBook,
+  deleteBook
+} from "../controllers/books.controller.js";
 
 const router = express.Router();
 
-// Add new book
-router.post("/", async(req, res)=>{
-  try{
-    const newBook = new Book(req.body);
-    const savedBook = await newBook.save();
-    res.status(201).json(savedBook);
-  }catch(err){
-    res.status(400).json({message: err.message});
-  }
-  
-})
+router.get("/", getBooks);
+router.get("/free", getFreeBooks);
+router.get("/:id", getBooksById)
 
-//get all books
-router.get("/", async(req, res)=>{
-    try {
-        const books = await Book.find();
-        res.status(200).json(books);
-    }catch (err) {
-        res.status(500).json({message: err.message});
-    }
-});
-
-// get free books
-router.get("/free", async (req, res) => {
-  try {
-    const freeBooks = await Book.find({ category: "free" });
-    res.status(200).json(freeBooks);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
+// Admin Only
+router.post("/",verifyToken, isAdmin, addBook);
+router.put("/:id",verifyToken, isAdmin, updateBook)
+router.delete("/:id",verifyToken, isAdmin, deleteBook);
 
 export default router;
