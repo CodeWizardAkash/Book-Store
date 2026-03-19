@@ -22,23 +22,23 @@ function ProfileSidebar() {
           🏠︎ Home
         </Link>
 
-        <Link to="/profile" className="hover:text-emerald-500">
+        <Link to={`/${user.role}`} className="hover:text-emerald-500">
           👤 Profile
         </Link>
 
-        <Link to="/profile/my-books" className="hover:text-emerald-500">
+        <Link to={`/${user.role}/my-books`}className="hover:text-emerald-500">
           📚 My Books
         </Link>
 
-        <Link to="/profile/wishlist" className="hover:text-emerald-500">
+        <Link to={`/${user.role}/wishlist`} className="hover:text-emerald-500">
           ❤️ Wishlist
         </Link>
 
-        <Link to="/profile/cart" className="hover:text-emerald-500">
+        <Link to={`/${user.role}/cart`} className="hover:text-emerald-500">
           🛒 Cart
         </Link>
 
-        <Link to="/profile/settings" className="hover:text-emerald-500">
+        <Link to={`/${user.role}/setting`} className="hover:text-emerald-500">
           ⚙ Settings
         </Link>
         {/* <button

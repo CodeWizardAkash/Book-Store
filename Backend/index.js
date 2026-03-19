@@ -7,6 +7,7 @@ import courseRoute from "./route/course.route.js";
 import authRoute from "./route/auth.route.js";
 import ContactRoute from "./route/contact.route.js";
 import { createAdmin } from "./utils/createAdmin.js";
+import cartRoute from "./route/cart.route.js";
 
 dotenv.config();
 
@@ -25,15 +26,15 @@ mongoose
 
         await createAdmin();
     })
-    .catch((err) => console.log("MongoDB error ❌", err));
-
-// admin creation   
+    .catch((err) => console.log("MongoDB error ❌", err));  
 
 // routes
 app.use("/api/books", bookRoute);
 app.use("/api/courses", courseRoute); 
 app.use("/api/auth", authRoute); 
 app.use("/api/contact", ContactRoute)
+app.use("/api/cart", cartRoute);
+
 //test route
 app.get("/", (req, res)=>{
     res.send("Hello World");

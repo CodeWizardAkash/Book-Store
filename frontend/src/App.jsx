@@ -7,6 +7,7 @@ import Contact from './components/Contact';
 import About from './components/About';
 import AllBooks from './books/AllBooks';
 import ProtectedRoute from './ProtectedRoute';
+import ProtectedAdminRoute from './ProtectedAdminRoute';
 
 import AdminDashboard from './profile/admin/AdminDashboard';
 import AddBook from './profile/admin/AddBook';
@@ -33,7 +34,7 @@ function App(){
         <Route path='/books' element={<ProtectedRoute><AllBooks/></ProtectedRoute>}/>
         
         {/* Shared Profile Layout */}
-        <Route path="/profile" element={<ProfileLayout />}>
+        <Route path="/:role" element={<ProfileLayout />}>
           {/* Default profile page */}
           <Route index element={<ProfileInfo />} />
 
@@ -44,10 +45,10 @@ function App(){
 
           {/* Admin routes */}
           {/* <Route path="admin-info" element={<AdminProfile />} /> */}
-          <Route path="messages" element={<AdminMessages />} />
-          <Route path="admin-dashboard" element={<AdminDashboard />} />
-          <Route path="add-book" element={<AddBook />} />
-          <Route path="edit-book/:id" element={<EditBook />} />
+          <Route path="messages" element={<ProtectedAdminRoute><AdminMessages /></ProtectedAdminRoute> } />
+          <Route path="admin-dashboard" element={<ProtectedAdminRoute><AdminDashboard /></ProtectedAdminRoute>} />
+          <Route path="add-book" element={<ProtectedAdminRoute><AddBook /></ProtectedAdminRoute>} />
+          <Route path="edit-book/:id" element={<ProtectedAdminRoute><EditBook /></ProtectedAdminRoute>} />
         </Route>
       
       </Routes>

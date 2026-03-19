@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaUser, FaHeart, FaShoppingCart, FaSignOutAlt, FaCrown } from "react-icons/fa";
+import Wishlist from "./Wishlist";
 
 function ProfileMenu({ open, setOpen, user, handleLogout }) {
 
@@ -36,21 +37,21 @@ function ProfileMenu({ open, setOpen, user, handleLogout }) {
       </div>
 
       <Link
-        to="/profile"
+        to={`/${user.role}`}
         className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100"
       >
         <FaUser /> Profile
       </Link>
 
       <Link
-        to="/profile/cart"
+        to={`/${user.role}/cart`}
         className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100"
       >
         <FaShoppingCart /> Cart
       </Link>
 
       <Link
-        to="/profile/wishlist"
+        to={`/${user.role}/wishlist`}
         className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100"
       >
         <FaHeart /> Wishlist
