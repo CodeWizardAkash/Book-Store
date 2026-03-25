@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import rupee from "../../public/rupee-sign.svg";
+import Wishlist from "../profile/user/Wishlist";
 
 function Card({ book, product }) {
   const [loading, setLoading] = useState(false);
+  const [wishlist, setWishlist] = useState(()=>{
+    const saved = localStorage.getItem("wishlist");
+    return saved ? JSON.parse(saved): [];
+  })
 
   const addToCart = async (bookId) => {
     try {
@@ -27,6 +32,71 @@ function Card({ book, product }) {
       alert("Login required!");
     } finally {
       setLoading(false);
+    }
+  };
+
+  useEffect(()=>{
+    fetchWishlist()
+  }, [])
+
+  const fetchWishlist = async ()=>{
+    try{
+      const token = localStorage.getItem("token");
+
+      const res = await axios.get(
+        "http://localhost:3001/api/wishlist",
+        {
+          headers:{
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      const ids = res.data.books.map((b)=>b._id);
+      setWishlist(ids);
+
+      localStorage.setItem("wishlist", JSON.stringify(ids));
+
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  const isWishlisted = wishlist.includes(book._id);
+
+  const toggleWishlist = async (bookId)=>{
+    const token = localStorage.getItem("token");
+
+    if(!token){
+      alert("Login required!")
+    }
+    // optimistic UI
+    setWishlist((prev)=>{
+      let updated;
+
+      if(prev.includes(bookId)){
+        updated = prev.filter((id)=> id !== bookId);
+      }else{
+        updated = [...prev, bookId];
+      }
+      localStorage.setItem("wishlist", JSON.stringify(updated))
+      
+      return updated;
+    });
+
+    try{
+      await axios.post(
+        "http://localhost:3001/api/wishlist/toggle",
+        {bookId},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      )
+    }catch(err){
+      console.log(err);
+      //rollback
+      fetchWishlist();
     }
   };
 
@@ -61,11 +131,22 @@ function Card({ book, product }) {
           {book.title}
         </p>
 
-        {/* Price */}
-        <div className="flex items-center gap-1 mt-3 font-semibold">
-          <img src={rupee} alt="" className="w-4 h-4" />
-          <span>{book.price}</span>
+        <div className="flex justify-between">
+          <div className="flex items-center gap-1 mt-3 font-semibold">
+            <img src={rupee} alt="" className="w-4 h-4" />
+            <span>{book.price}</span>
+          </div>
+
+          {/* wishlist */}
+          <button
+            onClick={()=> toggleWishlist(book._id)}
+            className="text-xl p-1 rounded-full shadow hover:scale-110 cursor-pointer"
+          >
+            {isWishlisted ? "❤️" : "🤍"}
+          </button>
         </div>
+        {/* Price */}
+
 
         {/* Buttons */}
         <div className="flex gap-2 mt-4">

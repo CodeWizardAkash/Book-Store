@@ -8,6 +8,7 @@ import authRoute from "./route/auth.route.js";
 import ContactRoute from "./route/contact.route.js";
 import { createAdmin } from "./utils/createAdmin.js";
 import cartRoute from "./route/cart.route.js";
+import wishlistRoute from "./route/wishlist.route.js"
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use("/api/courses", courseRoute);
 app.use("/api/auth", authRoute); 
 app.use("/api/contact", ContactRoute)
 app.use("/api/cart", cartRoute);
+app.use("/api/wishlist", wishlistRoute);    
 
 //test route
 app.get("/", (req, res)=>{
