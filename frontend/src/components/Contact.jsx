@@ -12,7 +12,7 @@ function Contact() {
     setError("");
     try{
       const res = await axios.post(
-        "http://localhost:3001/api/contact/",
+        `${process.env.REACT_APP_API_URL}/api/contact/`,
 
         {name, email, message}
       )

@@ -12,7 +12,7 @@ function Course() {
       const fatchCourses = async() =>{
         try{
           const token = localStorage.getItem("token");
-          const res = await axios.get("http://localhost:3001/api/courses/", {
+          const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/courses/`, {
             headers:{
               Authorization: `Bearer ${token}`
             },

@@ -8,7 +8,7 @@ function AdminDashboard() {
 
   const deleteBook = async (id) => {
     await axios.delete(
-      `http://localhost:3001/api/books/${id}`,
+      `${process.env.REACT_APP_API_URL}/api/books/${id}`,
       {
         headers:{
           Authorization: `Bearer ${token}`
@@ -21,7 +21,7 @@ function AdminDashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/books")
+      .get(`${process.env.REACT_APP_API_URL}/api/books`)
       .then((res) => setBooks(res.data));
   }, []);
 

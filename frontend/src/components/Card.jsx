@@ -44,7 +44,7 @@ function Card({ book, product }) {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:3001/api/wishlist",
+        `${process.env.REACT_APP_API_URL}/api/wishlist`,
         {
           headers:{
             Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ function Card({ book, product }) {
 
     try{
       await axios.post(
-        "http://localhost:3001/api/wishlist/toggle",
+        `${process.env.REACT_APP_API_URL}/api/wishlist/toggle`,
         {bookId},
         {
           headers: {

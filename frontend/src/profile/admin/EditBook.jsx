@@ -34,7 +34,7 @@ const handleUpdate = async (e) => {
   const token = localStorage.getItem("token");
 
   await axios.put(
-    `http://localhost:3001/api/books/${id}`,
+    `${process.env.REACT_APP_API_URL}/api/books/${id}`,
     book,
     {
       headers: {

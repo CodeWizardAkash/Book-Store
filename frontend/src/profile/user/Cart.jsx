@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function Cart() {
   const [cart, setCart] = useState([]);
@@ -152,9 +154,13 @@ function Cart() {
               Total: ₹ {total}
             </h2>
 
-            <button className="bg-emerald-600 text-white px-6 py-2 rounded hover:bg-emerald-700">
-              Checkout
-            </button>
+            <Link to={"/checkout"}>
+              <button className="bg-emerald-600 text-white px-6 py-2 rounded hover:bg-emerald-700">
+                Checkout
+              </button>
+            </Link>
+
+            
           </div>
         </>
       )}

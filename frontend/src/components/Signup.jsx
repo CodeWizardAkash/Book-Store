@@ -20,7 +20,7 @@ function Signup(){
 
         try{
             const res = await axios.post(
-                "http://localhost:3001/api/auth/register",
+                `${process.env.REACT_APP_API_URL}/api/auth/register`,
                 {name, email, password}
             );
 

@@ -1,22 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function MyBooks() {
+  const [orders, setOrders] = useState([]);
 
-  const books = [];
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    const token = localStorage.getItem("token");
+
+    const res = await axios.get(
+      "http://localhost:3001/api/orders/my",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setOrders(res.data);
+  };
 
   return (
-    <div>
-
+    <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">My Books</h1>
-      
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-        {books.length === 0 && (
-          <p>You haven't purchased any books yet.</p>
-        )}
+      {orders.map((order) =>
+        order.items.map((item) => (
+          <div key={item.book._id} className="border p-3 mb-3">
+            <h2>{item.book.name}</h2>
 
-      </div>
-
+            <a
+              href={item.book.pdf_url}
+              target="_blank"
+              className="text-blue-500"
+            >
+              Read Now 📖
+            </a>
+          </div>
+        ))
+      )}
     </div>
   );
 }

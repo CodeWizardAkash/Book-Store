@@ -25,7 +25,7 @@ function AddBook() {
     const token = localStorage.getItem("token");
 
     await axios.post(
-      "http://localhost:3001/api/books",
+      `${process.env.REACT_APP_API_URL}/api/books`,
       book,
       {
         headers: {

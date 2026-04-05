@@ -20,7 +20,8 @@ import Wishlist from './profile/user/Wishlist'
 import ProfileLayout from './profile/ProfileLayout'
 import ProfileInfo from './profile/user/ProfileInfo';
 import Cart from './profile/user/Cart';
-
+import Checkout from './components/Checkout';
+import OrderSuccess from './components/orderSuccess';
 function App(){
   
   return (
@@ -32,6 +33,9 @@ function App(){
         <Route path='/contact' element={<ProtectedRoute><Contact/></ProtectedRoute>}/>
         <Route path='/about' element={<ProtectedRoute><About/></ProtectedRoute>}/>
         <Route path='/books' element={<ProtectedRoute><AllBooks/></ProtectedRoute>}/>
+
+        <Route path="/checkout" element ={<Checkout/>}/>
+        <Route path='/order-success' element={<OrderSuccess/>} />
         
         {/* Shared Profile Layout */}
         <Route path="/:role" element={<ProfileLayout />}>
@@ -42,6 +46,7 @@ function App(){
           <Route path="cart" element={<Cart />} />
           <Route path="wishlist" element={<Wishlist />} />
           <Route path="my-books" element={<MyBooks />} />
+          
 
           {/* Admin routes */}
           {/* <Route path="admin-info" element={<AdminProfile />} /> */}

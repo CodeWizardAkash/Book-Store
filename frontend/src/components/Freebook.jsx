@@ -13,7 +13,7 @@ function Freebook() {
 
   useEffect(()=>{
     axios
-      .get("http://localhost:3001/api/books/free")
+      .get(`${process.env.REACT_APP_API_URL}/api/books/free`)
       .then((res)=>{
         setBooks(res.data);
         setLoading(false);
