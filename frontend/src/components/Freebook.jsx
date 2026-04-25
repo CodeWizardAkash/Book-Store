@@ -1,6 +1,6 @@
 import React from "react";
 // import list from "../../public/list.json";
-import rupee from "../../public/rupee-sign.svg"
+import rupee from "/rupee-sign.svg"
 import Card from "./Card"
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -13,7 +13,7 @@ function Freebook() {
 
   useEffect(()=>{
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/books/free`)
+      .get(`${import.meta.env.VITE_API_URL}/books/free`)
       .then((res)=>{
         setBooks(res.data);
         setLoading(false);

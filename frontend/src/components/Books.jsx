@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 // import Navbar from "./navbar";
 // import list from "../../public/list.json";
-import rupee from "../../public/rupee-sign.svg";
+import rupee from "/rupee-sign.svg";
 import Card from "./Card";
 
 function Books() {
@@ -12,7 +12,7 @@ function Books() {
 
     useEffect(()=>{ 
         axios
-        .get(`${process.env.REACT_APP_API_URL}/api/books/`)
+        .get(`${import.meta.env.VITE_API_URL}/books/`)
         .then((res)=>{
             setBooks(res.data);
             setLoading(false);

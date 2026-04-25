@@ -25,7 +25,7 @@ function AddBook() {
     const token = localStorage.getItem("token");
 
     await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/books`,
+      `${import.meta.env.VITE_API_URL}/books`,
       book,
       {
         headers: {

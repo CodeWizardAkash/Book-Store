@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import rupee from "../../public/rupee-sign.svg";
+import rupee from "/rupee-sign.svg";
 import Wishlist from "../profile/user/Wishlist";
 
 function Card({ book, product }) {
@@ -17,7 +17,8 @@ function Card({ book, product }) {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:3001/api/cart/add",
+        `${import.meta.env.VITE_API_URL}/cart/add`,
+        // "http://localhost:3001/api/cart/add",
         { bookId },
         {
           headers: {

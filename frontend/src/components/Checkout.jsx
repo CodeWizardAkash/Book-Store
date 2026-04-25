@@ -14,7 +14,7 @@ function Checkout() {
   const fetchCart = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await axios.get("http://localhost:3001/api/cart", {
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

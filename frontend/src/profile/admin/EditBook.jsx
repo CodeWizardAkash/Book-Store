@@ -34,7 +34,7 @@ const handleUpdate = async (e) => {
   const token = localStorage.getItem("token");
 
   await axios.put(
-    `${process.env.REACT_APP_API_URL}/api/books/${id}`,
+    `${import.meta.env.VITE_API_URL}/books/${id}`,
     book,
     {
       headers: {

@@ -12,7 +12,7 @@ function MyBooks() {
     const token = localStorage.getItem("token");
 
     const res = await axios.get(
-      "http://localhost:3001/api/orders/my",
+      `${import.meta.env.VITE_API_URL}/orders/my`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

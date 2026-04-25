@@ -17,7 +17,7 @@ function Cart() {
       setLoading(true);
       const token = localStorage.getItem("token");
 
-      const res = await axios.get("http://localhost:3001/api/cart", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +37,7 @@ function Cart() {
       const token = localStorage.getItem("token");
 
       await axios.delete(
-        `http://localhost:3001/api/cart/remove/${bookId}`,
+        `${import.meta.env.VITE_API_URL}/cart/remove/${bookId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ function Cart() {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        "http://localhost:3001/api/cart/update",
+        `${import.meta.env.VITE_API_URL}/cart/update`,
         {
           bookId,
           quantity: newQty,

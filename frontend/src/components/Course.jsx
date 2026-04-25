@@ -1,5 +1,5 @@
 import React from "react";
-import courselist from "../../public/course_list.json"
+import courselist from "/course_list.json?url"
 import Card from "./Card"
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,7 +12,7 @@ function Course() {
       const fatchCourses = async() =>{
         try{
           const token = localStorage.getItem("token");
-          const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/courses/`, {
+          const res = await axios.get(`${import.meta.env.VITE_API_URL}/courses/`, {
             headers:{
               Authorization: `Bearer ${token}`
             },

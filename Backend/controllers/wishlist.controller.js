@@ -41,12 +41,14 @@ export const toggleWishlist = async (req, res) =>{
 
 export const getWishlist = async (req, res) =>{
     try{
-        const wishlist = await Wishlist.findOne({user: req.user.id}).populate("books");
+        const wishlist = await Wishlist
+            .findOne({user: req.user.id})
+            .populate("books");
 
         if(!wishlist){
             return res.json({books: []});
         }
-        res.json(wishlist);
+        res.json({books: wishlist.books});
     }catch(err){
         res.status(500).json({message: err.message});
     }

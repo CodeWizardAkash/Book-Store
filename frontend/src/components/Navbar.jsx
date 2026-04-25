@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import { AuthContext } from "../context/AuthContext";
-import NavLogo from "../../public/navLogo.png";
+import NavLogo from "/navLogo.png";
 import ProfileMenu from "../profile/user/ProfileMenu";
 
 function Navbar() {

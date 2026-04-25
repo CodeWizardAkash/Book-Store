@@ -1,7 +1,7 @@
 import React from "react";
-import banner from "../../public/banner.png";
-import bannerLogo from "../../public/bannerLogo.png"
-import emailsvg from "../../public/email_svg.svg";
+import banner from "/banner.png";
+import bannerLogo from "/bannerLogo.png"
+import emailsvg from "/email_svg.svg";
 
 function Banner(){
     return(

@@ -21,13 +21,14 @@ function Wishlist() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:3001/api/wishlist",
+        `${import.meta.env.VITE_API_URL}/wishlist`,
         {
           headers:{
             Authorization: `Bearer ${token}`,
           },
         }
       )
+      console.log(res.data);
       setBooks(res.data.books || []);
     }catch(err){
       console.log(err);
@@ -44,7 +45,7 @@ function Wishlist() {
 
     try {
       await axios.post(
-        "http://localhost:3001/api/wishlist/toggle",
+        `${import.meta.env.VITE_API_URL}/wishlist/toggle`,
         { bookId },
         {
           headers: {
