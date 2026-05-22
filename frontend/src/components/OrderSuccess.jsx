@@ -9,24 +9,24 @@ function OrderSuccess() {
       
       <div className="bg-white shadow-xl rounded-2xl p-8 max-w-md w-full text-center">
 
-        {/* ✅ Success Icon */}
+        {/* Success Icon */}
         <div className="flex justify-center mb-4">
           <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
             <span className="text-4xl text-green-600">✔</span>
           </div>
         </div>
 
-        {/* 🎉 Title */}
+        //Title
         <h1 className="text-2xl font-bold mb-2">
           Order Placed Successfully 🎉
         </h1>
 
-        {/* 📦 Subtitle */}
+        {/*Subtitle */}
         <p className="text-gray-600 mb-6">
           Your books are ready to read. You can access them anytime in your library.
         </p>
 
-        {/* 🚀 Buttons */}
+        {/* Buttons */}
         <div className="flex flex-col gap-3">
 
           <button
